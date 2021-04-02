@@ -2,6 +2,81 @@
 Release Notes
 =============
 
+2.3.1 (2021-04-XX)
+==================
+
+Highlights
+----------
+
+- Entities can be annotated with boolean datatypes, e.g.:
+
+  .. code-block::
+
+    file = synapseclient.File('/path/to/file', parentId='syn123', synapse_is_great=True)
+    syn.store(file)
+
+- synapseclient is additionally packaged as a Python wheel.
+
+
+Bug Fixes
+---------
+
+-  [`SYNPY-829 <https://sagebionetworks.jira.com/browse/SYNPY-829>`__] -
+   syn.store always updates annotations
+-  [`SYNPY-1033 <https://sagebionetworks.jira.com/browse/SYNPY-1033>`__] -
+   If versionComment is left blank, previous version comment populates
+
+Improvements
+------------
+
+-  [`SYNPY-1120 <https://sagebionetworks.jira.com/browse/SYNPY-1120>`__] -
+   Build wheel distributions
+-  [`SYNPY-1129 <https://sagebionetworks.jira.com/browse/SYNPY-1129>`__] -
+   support boolean annotations in Python client
+-  [`SYNPY-1138 <https://sagebionetworks.jira.com/browse/SYNPY-1138>`__] -
+   When using boto3 client to upload a file, also include ACL to give bucket owner full access
+
+
+2.3.0 (2021-03-03)
+==================
+
+Highlights
+----------
+
+- The `index_files_for_migration <synapseutils.html#synapseutils.migrate_functions.index_files_for_migration>`__ and
+  `migrate_indexed_files <synapseutils.html#synapseutils.migrate_functions.migrate_indexed_files>`__ functions are added
+  to synapseutils to help migrate files in Synapse projects and folders between AWS S3 buckets in the same region.
+  More details on using these utilities can be found `here <S3Storage.html#storage-location-migration>`__.
+
+- This version supports login programatically and from the command line using personal access tokens that can be obtained
+  from your synapse.org Settings. Additional documentation on login and be found `here <Credentials.html>`__.
+
+  .. code-block::
+
+   # programmatic
+   syn = synapseclient.login(authToken=<token>)
+
+  .. code-block::
+
+   # command line
+   synapse login -p <token>
+
+- The location where downloaded entities are cached can be customized to a location other than the user's home directory.
+  This is useful in environments where writing to a home directory is not appropriate (e.g. an AWS lambda).
+
+  .. code-block::
+
+   syn = synapseclient.Synapse(cache_root_dir=<directory path>)
+
+- A `helper method <index.html#synapseclient.Synapse.is_certified>`__ on the Synapse object has been added to enable obtaining the Synapse certification quiz status of a user.
+
+  .. code-block::
+
+   passed = syn.is_certified(<username or user_id>)
+
+- This version has been tested with Python 3.9.
+
+
 2.3.0 (2021-03-03)
 ================
 
